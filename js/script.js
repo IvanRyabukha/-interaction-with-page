@@ -15,28 +15,37 @@
 'use strict';
 
 const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против..."
-    ]
+  movies: [
+    "Логан",
+    "Лига справедливости",
+    "Ла-ла лэнд",
+    "Одержимость",
+    "Скотт Пилигрим против..."
+  ]
 };
 
-const promoAdv = document.querySelector('.promo__adv').getElementsByTagName('img');
+const promoAdv = document.querySelectorAll('.promo__adv img')
 
-Array.from(promoAdv).forEach(element => {
-    element.remove();
+promoAdv.forEach(element => {
+  element.remove();
 });
 
-const gener = document.querySelector('.promo__genre');
-gener.textContent = 'ДРАМА';
-
 const bg = document.querySelector('.promo__bg');
-bg.style.background = `url('/img/bg.jpg') center / cover no-repeat`;
+const gener = bg.querySelector('.promo__genre');
 
-const moviesList = document.querySelectorAll('.promo__interactive-item');
-moviesList.forEach((mov, i) => mov.innerHTML = `${i + 1}. ${movieDB.movies.sort()[i]}`);
+gener.textContent = 'драма';
+bg.style.backgroundImage = `url('/img/bg.jpg')`;
 
+const movieList = document.querySelector('.promo__interactive-list');
 
+movieList.innerHTML = '';
+
+movieDB.movies.sort();
+
+movieDB.movies.forEach((film, i) => {
+  movieList.innerHTML += `
+    <li class="promo__interactive-item">${i + 1}. ${film}
+      <div class="delete"></div>
+    </li>
+  `;
+});
